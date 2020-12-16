@@ -15,6 +15,6 @@ export class ProductosComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  products: string[] = ['Apple', 'Banana', 'Orange','Apple', 'Banana', 'Orange'];
+products: string[] =[];
 
 }
