@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+
+
 @Component({
   selector: 'app-productos',
   templateUrl: './productos.component.html',
@@ -7,9 +9,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProductosComponent implements OnInit {
 
+  
   constructor() { }
 
   ngOnInit(): void {
   }
+
+  products: string[] = ['Apple', 'Banana', 'Orange','Apple', 'Banana', 'Orange'];
 
 }
