@@ -28,9 +28,15 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-toastr/toastr.css"
+
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/jquery/dist/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -124,5 +130,8 @@
       }
     }
   },
-  "defaultProject": "bazar-app"
+  "defaultProject": "bazar-app",
+  "cli": {
+    "analytics": "60afb579-ff74-4828-9b1b-cc81cdc08a81"
+  }
 }

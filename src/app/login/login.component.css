@@ -1,0 +1,21 @@
+.bg-login{
+    background-color: thistle;
+    font-size: larger;
+}
+
+.btn-outline-dark{
+    border-color: white;
+    color: white;
+}
+
+.btn-outline-dark:hover{
+    background-color: white;
+    color: rgb(206, 150, 206);
+}
+
+.abs-center{
+    display:flex;
+    align-items :center;
+    justify-content: center;
+    min-height: 100vh;
+}

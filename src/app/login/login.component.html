@@ -1,0 +1,28 @@
+<div class="container abs-center">
+  <div class="container rounded bg-login text-center" style="max-width: fit-content;" ng-cloak>
+
+    <img class="img w-25" src="assets/sanrio.png" alt="" style="margin: 30px;" />
+
+
+    <div class="input-group mb-3 mx-auto" style="max-width: fit-content;">
+      <div class="input-group-prepend ">
+        <span class="input-group-text bg-white" >@</span>
+      </div>
+      <input type="text" class="form-control" placeholder="Nombre de usuario" aria-label="Username"
+        aria-describedby="basic-addon1" [(ngModel)]="user"/>
+    </div>
+
+
+    <div class="input-group mb-3 mx-auto " style="max-width: fit-content;">
+      <div class="input-group-prepend">
+        <span class="input-group-text bg-white" >•••</span>
+      </div>
+      <input type="password" class="form-control" placeholder="Contraseña" aria-label="Username"
+        aria-describedby="basic-addon1" [(ngModel)]="pass"/>
+    </div>
+
+    <div class="text-center">
+      <button type="button" class="btn btn-outline-dark text-center" style="margin: 20px;" (click)="entrar()">Iniciar sesión</button>
+    </div>
+  </div>
+</div>
