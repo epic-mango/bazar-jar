@@ -1,1 +1,36 @@
-<p>menu works!</p>
+<nav class="navbar navbar-expand-lg navbar-light">
+  <a class="navbar-brand">Bazar.jar</a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" routerLink="/productos">Productos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/pedidos">Pedidos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/clientes">Clientes</a>
+      </li>
+    </ul>
+
+    <form class="form-inline">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" (click)="salir()" href="">Salir</a>
+            </li>
+        </ul>
+    </form>
+  </div>
+</nav>

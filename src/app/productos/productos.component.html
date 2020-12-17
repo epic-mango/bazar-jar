@@ -1,1 +1,148 @@
-<p>productos works!</p>
+<div class="abs-center">
+  <div class="container rounded m-5 pb-5" style="height: 100%">
+    <app-menu></app-menu>
+
+    <div class="p-3 row row-cols-4-auto m-auto p-1 justify-content-md-center">
+      <div
+        *ngFor="let product of products"
+        class="card m-1 shadow"
+        style="max-width: 18rem"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        (click)="setProductoSeleccionado(product)"
+      >
+        <img
+          [src]="product.imagen"
+          class="card-img-top rounded shadow"
+          alt=""
+          style="height: 200px; object-fit: cover"
+        />
+        <div class="card-body">
+          <h5 class="card-title">{{ product.nombre }}</h5>
+          <p class="card-text">
+            Precio venta: ${{ product.precioVenta }}<br />
+            Precio compra: ${{ product.precioCompra }}
+          </p>
+          <a class="btn btn-outline-dark">Apartar</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="card m-auto shadow" style="width: 8rem">
+      <div class="card-body">
+        <!-- Button trigger modal -->
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          data-toggle="modal"
+          data-target="#exampleModal"
+          (click)="limpiarProductoSeleccionado()"
+        >
+          <img
+            src="../../assets/ic_add.png"
+            class="card-img-top"
+            alt="icono_agregar"
+          />
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  role="dialog"
+  aria-hidden="true"
+>
+  <div class="modal-dialog abs-center" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Editar producto</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!--Imagen-->
+        <div class="input-group mb-3 mx-auto" style="width: 16rem">
+          <input
+            type="file"
+            hidden="true"
+            class="form-control"
+            accept="image/*"
+            id="inputGroupFile02"
+            (change)="onFileSelected($event)"
+          />
+          <label class="input-group-text" for="inputGroupFile02">
+            <img [src]="imgEditar" class="card-img-top" alt="icono_agregar" />
+          </label>
+        </div>
+
+        <!--nombre-->
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="txtNombre">Aa</span>
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Nombre del producto"
+            aria-label="Nombre del producto"
+            aria-describedby="txtNombre"
+            [(ngModel)]="productoSeleccionado.nombre"
+          />
+        </div>
+
+        <!--precio compra-->
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="txtPrecioCompra">-$</span>
+          <input
+            type="number"
+            step="any"
+            min="1"
+            class="form-control"
+            placeholder="Precio compra"
+            aria-label="Precio compra"
+            aria-describedby="txtPrecioCompra"
+            [(ngModel)]="productoSeleccionado.precioCompra"
+          />
+        </div>
+
+        <!--precio venta-->
+        <div class="input-group mb-3">
+          <span class="input-group-text" id="txtPrecioVenta">+$</span>
+          <input
+            type="number"
+            step="any"
+            min="1"
+            class="form-control"
+            placeholder="Precio venta"
+            aria-label="Precio venta"
+            aria-describedby="txtPrecioVenta"
+            [(ngModel)]="productoSeleccionado.precioVenta"
+          />
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal" (click)="eliminar(productoSeleccionado.id)">
+          Eliminar
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          data-dismiss="modal"
+          (click)="editarProducto()"
+        >
+          Guardar
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

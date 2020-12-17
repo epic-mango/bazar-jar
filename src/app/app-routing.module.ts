@@ -5,8 +5,8 @@ import { ProductosComponent } from './productos/productos.component';
 import { SeguridadGuard } from './seguridad.guard';
 
 const routes: Routes = [
-  {path: '**', component: LoginComponent},
-{path: 'productos', component: ProductosComponent, canActivate: SeguridadGuard}];
+  {path: 'productos', component: ProductosComponent, canActivate: [SeguridadGuard]},
+  {path: '**', component: LoginComponent}];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

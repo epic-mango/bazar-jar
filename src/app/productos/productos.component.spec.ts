@@ -1,3 +1,4 @@
+import { ITS_JUST_ANGULAR } from '@angular/core/src/r3_symbols';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProductosComponent } from './productos.component';
@@ -23,3 +24,5 @@ describe('ProductosComponent', () => {
     expect(component).toBeTruthy();
   });
 });
+
+
