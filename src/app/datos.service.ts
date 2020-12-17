@@ -12,23 +12,36 @@ export class DatosService {
   constructor(private http: HttpClient, private galleta: CookieService) {}
   private cuenta = { user: '', token: '' };
 
+  getProductos() {
+    let headers = new HttpHeaders();
+    headers = headers.append('Authorization', this.cuenta.token);
+
+    return this.http.get<any>(URL + 'productos.php', { headers: headers });
+  }
+
   editarProducto(producto: Producto) {
     let headers = new HttpHeaders();
-    headers.append('Authorization', this.cuenta.token);
+    headers = headers.append('Authorization', this.cuenta.token);
 
-    if (producto.id == 0) {
-      let formData = new FormData();
+
+    let formData = new HttpParams();
 
       formData.append('id', producto.id + '');
       formData.append('nombre', producto.nombre);
       formData.append('precioCompra', producto.precioCompra + '');
       formData.append('precioVenta', producto.precioVenta + '');
-      if (producto.imagen)
-        formData.append('imagen', producto.imagen, producto.imagen.name);
+      if (producto.imagen) formData.append('imagen', producto.imagen);
+      formData.append('venta', producto.venta);
 
-        return this.http.post(URL + 'productos.php', formData,{headers: headers});
-      } else {
-        return this.http.post(URL + 'error.php',{headers: headers});
+
+    if (producto.id == 0) {
+      
+      return this.http.post<any>(URL + 'productos.php', formData, {
+        headers: headers,
+      });
+    } else {
+      debugger;
+      return this.http.put(URL + 'productos.php',null,{ headers: headers, params: formData });
     }
   }
 

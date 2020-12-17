@@ -15,18 +15,36 @@ export class ProductosComponent implements OnInit {
     private toast: ToastrService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.llenarProductos();
+  }
 
-  products: string[] = ['Ajo', 'Bistec', 'Chorizo', 'Durazno', 'E'];
+  llenarProductos() {
+    this.datos.getProductos().subscribe(
+      (success) => {
+        this.products = success;
+      },
+      (error) => {}
+    );
+  }
+
+  products: any;
 
   productoSeleccionado: Producto = {
     id: 0,
     nombre: '',
-    precioCompra: 0,
-    precioVenta: 0,
+    precioCompra: undefined,
+    precioVenta: undefined,
     venta: null,
     imagen: undefined,
   };
+
+  setProductoSeleccionado(producto: any) {
+    this.productoSeleccionado = producto;
+    if (this.productoSeleccionado.imagen)
+      this.imgEditar = this.productoSeleccionado.imagen;
+  }
+
   imgEditar: string = '../../assets/ic_add.png';
 
   onFileSelected(event: any) {
@@ -35,11 +53,10 @@ export class ProductosComponent implements OnInit {
     const reader = new FileReader();
     reader.onload = () => {
       this.imgEditar = reader.result as string;
+      this.productoSeleccionado.imagen = reader.result as string;
     };
 
     let file: File = event.target.files[0];
-    this.productoSeleccionado.imagen = file;
-
     reader.readAsDataURL(file);
   }
 
@@ -47,8 +64,8 @@ export class ProductosComponent implements OnInit {
     this.productoSeleccionado = {
       id: 0,
       nombre: '',
-      precioCompra: 0,
-      precioVenta: 0,
+      precioCompra: undefined,
+      precioVenta: undefined,
       venta: null,
       imagen: undefined,
     };
@@ -65,24 +82,52 @@ export class ProductosComponent implements OnInit {
       this.toast.error('Debes poner un nombre a tu producto');
       correcto = false;
     }
-    if (this.productoSeleccionado.precioCompra <= 0) {
+    if (
+      !this.productoSeleccionado.precioCompra ||
+      this.productoSeleccionado.precioCompra <= 0
+    ) {
       this.toast.error('Debes poner un precio de compra');
       correcto = false;
     }
-    if (this.productoSeleccionado.precioVenta <= 0) {
+    if (
+      !this.productoSeleccionado.precioVenta ||
+      this.productoSeleccionado.precioVenta <= 0
+    ) {
       this.toast.error('Debes poner un precio de venta');
       correcto = false;
     }
 
-    if (correcto) this.datos.editarProducto(this.productoSeleccionado);
+    if (correcto)
+      this.datos.editarProducto(this.productoSeleccionado).subscribe(
+        (success) => {
+          if (success['resultado'] == 'insertado') {
+            this.productoSeleccionado.id = success['id'];
+
+            let producto = JSON.parse(
+              JSON.stringify(this.productoSeleccionado)
+            );
+            this.products.push(producto);
+
+            this.toast.info(
+              'Se ha añadido ' + this.productoSeleccionado.nombre
+            );
+            this.limpiarProductoSeleccionado();
+          } else if (success['resultado'] == 'modificado') {
+          }
+        },
+        (error: Object) => {
+          this.llenarProductos();
+          this.toast.error('No se han guardado los cambios')
+        }
+      );
   }
 }
 
 export interface Producto {
   id: number;
   nombre: string;
-  precioCompra: number;
-  precioVenta: number;
-  imagen?: File;
+  precioCompra?: number;
+  precioVenta?: number;
+  imagen?: string;
   venta: any;
 }

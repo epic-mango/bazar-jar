@@ -7,18 +7,21 @@
         *ngFor="let product of products"
         class="card m-1 shadow"
         style="max-width: 18rem"
+        data-toggle="modal"
+        data-target="#exampleModal"
+        (click)="setProductoSeleccionado(product)"
       >
         <img
-          src="../../assets/sanrio.png"
+          [src]="product.imagen"
           class="card-img-top rounded shadow"
           alt=""
           style="height: 200px; object-fit: cover"
         />
         <div class="card-body">
-          <h5 class="card-title">{{ product }}</h5>
+          <h5 class="card-title">{{ product.nombre }}</h5>
           <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
+            Precio venta: ${{ product.precioVenta }}<br />
+            Precio compra: ${{ product.precioCompra }}
           </p>
           <a class="btn btn-outline-dark">Apartar</a>
         </div>
@@ -33,7 +36,7 @@
           class="btn btn-outline-dark"
           data-toggle="modal"
           data-target="#exampleModal"
-          (click) = "limpiarProductoSeleccionado()"
+          (click)="limpiarProductoSeleccionado()"
         >
           <img
             src="../../assets/ic_add.png"
@@ -48,14 +51,14 @@
 
 <!-- Modal -->
 <div
-  class="modal fade "
+  class="modal fade"
   id="exampleModal"
   tabindex="-1"
   aria-labelledby="exampleModalLabel"
   role="dialog"
   aria-hidden="true"
 >
-  <div class="modal-dialog abs-center " role="document">
+  <div class="modal-dialog abs-center" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Editar producto</h5>
@@ -68,24 +71,19 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body ">
+      <div class="modal-body">
         <!--Imagen-->
-        <div class="input-group mb-3 mx-auto" style="width: 16rem;">
+        <div class="input-group mb-3 mx-auto" style="width: 16rem">
           <input
             type="file"
             hidden="true"
             class="form-control"
             accept="image/*"
             id="inputGroupFile02"
-            (change) = "onFileSelected($event)"
+            (change)="onFileSelected($event)"
           />
           <label class="input-group-text" for="inputGroupFile02">
-            <img
-              [src]="imgEditar"
-              class="card-img-top"
-              alt="icono_agregar"
-              
-            />
+            <img [src]="imgEditar" class="card-img-top" alt="icono_agregar" />
           </label>
         </div>
 
@@ -133,9 +131,17 @@
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Eliminar</button>
-        <button type="button" class="btn btn-outline-dark"
-        (click)="editarProducto()">Guardar</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">
+          Eliminar
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-dark"
+          data-dismiss="modal"
+          (click)="editarProducto()"
+        >
+          Guardar
+        </button>
       </div>
     </div>
   </div>
