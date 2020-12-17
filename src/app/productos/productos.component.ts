@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlatformLocation } from '@angular/common';
 import { DatosService } from '../datos.service';
 import { ToastrService } from 'ngx-toastr';
+import { debug } from 'console';
 
 @Component({
   selector: 'app-productos',
@@ -97,7 +98,6 @@ export class ProductosComponent implements OnInit {
       correcto = false;
     }
 
-    debugger;
     if (correcto)
       this.datos.editarProducto(this.productoSeleccionado).subscribe(
         (success) => {
@@ -107,6 +107,9 @@ export class ProductosComponent implements OnInit {
             let producto = JSON.parse(
               JSON.stringify(this.productoSeleccionado)
             );
+
+            debugger;
+            
             this.products.push(producto);
 
             this.toast.info(
@@ -123,6 +126,27 @@ export class ProductosComponent implements OnInit {
           console.log(error);
         }
       );
+  }
+
+  eliminar(id: number) {
+    this.datos.eliminarProducto(id).subscribe(
+      (success) => {
+        if (success['resultado'] == 'eliminado') {
+          let indice = this.products.indexOf(
+            this.products.find(
+              (producto: Producto) =>
+                producto.id == this.productoSeleccionado.id
+            )
+          );
+
+          this.products.splice(indice, 1);
+          this.toast.info('Se eliminó el producto');
+        } else {
+          this.toast.error('Hubo un error en la eliminación');
+        }
+      },
+      (error) => {}
+    );
   }
 }
 
