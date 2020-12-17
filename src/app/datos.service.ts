@@ -23,8 +23,8 @@ export class DatosService {
     let headers = new HttpHeaders();
     headers = headers.append('Authorization', this.cuenta.token);
 
-
-    let formData = new HttpParams();
+    if (producto.id == 0) {
+      let formData = new FormData();
 
       formData.append('id', producto.id + '');
       formData.append('nombre', producto.nombre);
@@ -33,15 +33,22 @@ export class DatosService {
       if (producto.imagen) formData.append('imagen', producto.imagen);
       formData.append('venta', producto.venta);
 
-
-    if (producto.id == 0) {
-      
       return this.http.post<any>(URL + 'productos.php', formData, {
         headers: headers,
       });
     } else {
-      debugger;
-      return this.http.put(URL + 'productos.php',null,{ headers: headers, params: formData });
+      let params = new HttpParams();
+      params = params.append('id', producto.id + '');
+      params = params.append('nombre', producto.nombre);
+      params = params.append('precioCompra', producto.precioCompra + '');
+      params = params.append('precioVenta', producto.precioVenta + '');
+    //  if (producto.imagen) params= params.append('imagen', producto.imagen);
+      params = params.append('venta', producto.venta);
+
+      return this.http.put<any>(URL + 'productos.php', null, {
+        headers: headers,
+        params: params,
+      });
     }
   }
 

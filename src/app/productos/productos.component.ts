@@ -112,7 +112,8 @@ export class ProductosComponent implements OnInit {
               'Se ha añadido ' + this.productoSeleccionado.nombre
             );
             this.limpiarProductoSeleccionado();
-          } else if (success['resultado'] == 'modificado') {
+          } else if (success['resultado'] == 'actualizado') {
+            this.toast.info('Se actualizó correctamente');
           }
         },
         (error: Object) => {
