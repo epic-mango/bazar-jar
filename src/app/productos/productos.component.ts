@@ -35,7 +35,7 @@ export class ProductosComponent implements OnInit {
     nombre: '',
     precioCompra: undefined,
     precioVenta: undefined,
-    venta: null,
+    venta: undefined,
     imagen: undefined,
   };
 
@@ -66,7 +66,7 @@ export class ProductosComponent implements OnInit {
       nombre: '',
       precioCompra: undefined,
       precioVenta: undefined,
-      venta: null,
+      venta: undefined,
       imagen: undefined,
     };
     this.imgEditar = '../../assets/ic_add.png';
@@ -97,6 +97,7 @@ export class ProductosComponent implements OnInit {
       correcto = false;
     }
 
+    debugger;
     if (correcto)
       this.datos.editarProducto(this.productoSeleccionado).subscribe(
         (success) => {
@@ -118,7 +119,8 @@ export class ProductosComponent implements OnInit {
         },
         (error: Object) => {
           this.llenarProductos();
-          this.toast.error('No se han guardado los cambios')
+          this.toast.error('No se han guardado los cambios');
+          console.log(error);
         }
       );
   }
@@ -130,5 +132,5 @@ export interface Producto {
   precioCompra?: number;
   precioVenta?: number;
   imagen?: string;
-  venta: any;
+  venta?: number;
 }

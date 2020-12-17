@@ -31,7 +31,7 @@ export class DatosService {
       formData.append('precioCompra', producto.precioCompra + '');
       formData.append('precioVenta', producto.precioVenta + '');
       if (producto.imagen) formData.append('imagen', producto.imagen);
-      formData.append('venta', producto.venta);
+      if (producto.venta) formData.append('venta', producto.venta+"");
 
       return this.http.post<any>(URL + 'productos.php', formData, {
         headers: headers,
@@ -42,7 +42,7 @@ export class DatosService {
       params = params.append('nombre', producto.nombre);
       params = params.append('precioCompra', producto.precioCompra + '');
       params = params.append('precioVenta', producto.precioVenta + '');
-    //  if (producto.imagen) params= params.append('imagen', producto.imagen);
+      //  if (producto.imagen) params= params.append('imagen', producto.imagen);
       params = params.append('venta', producto.venta);
 
       return this.http.put<any>(URL + 'productos.php', null, {
